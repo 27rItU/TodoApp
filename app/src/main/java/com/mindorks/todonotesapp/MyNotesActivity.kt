@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.mindorks.todonotesapp.PrefConstant.FULL_NAME
 import com.mindorks.todonotesapp.adapter.NotesAdapter
 import com.mindorks.todonotesapp.clicklisteners.ItemClickListener
 import com.mindorks.todonotesapp.model.Notes
