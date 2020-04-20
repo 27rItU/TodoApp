@@ -19,7 +19,7 @@ import com.mindorks.todonotesapp.clicklisteners.ItemClickListener
 import com.mindorks.todonotesapp.model.Notes
 
 public class MyNotesActivity : AppCompatActivity() {
-    lateinit var fullName: String
+    var fullName: String?=null
     lateinit var fabAddNotes:FloatingActionButton
     val TAG = "MyNotesActivity"
     lateinit var sharedPreferences: SharedPreferences
@@ -91,9 +91,9 @@ public class MyNotesActivity : AppCompatActivity() {
     private fun getIntentData() {
         val intent = intent
         if (intent.hasExtra(AppConstant.FULL_NAME)) {
-            fullName = intent.getStringExtra(AppConstant.FULL_NAME)
+            fullName = intent.getStringExtra(AppConstant.FULL_NAME)?:""
         }
-        if (fullName.isEmpty()){
+        if (fullName ==null){
             fullName = sharedPreferences.getString(PrefConstant.FULL_NAME, "")?:""
         }
     }

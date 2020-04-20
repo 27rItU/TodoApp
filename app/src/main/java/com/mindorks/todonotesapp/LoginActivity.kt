@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.mindorks.todonotesapp.PrefConstant.SHARED_PREFERENCE_NAME
 
 class LoginActivity : AppCompatActivity() {
     lateinit var editTextFullName: EditText
@@ -26,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sharedPreference() {
-        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     }
 
@@ -45,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     saveFullName(fullName)
                     saveLoginState()
                 }else{
-                    //Toast.makeText(this@LoginActivity, "FullName and UserName can't be empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "FullName and UserName can't be empty", Toast.LENGTH_SHORT).show()
                 }
             }
 
