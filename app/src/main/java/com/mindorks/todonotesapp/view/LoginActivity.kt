@@ -1,4 +1,4 @@
-package com.mindorks.todonotesapp
+package com.mindorks.todonotesapp.view
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.mindorks.todonotesapp.R
+import com.mindorks.todonotesapp.utils.AppConstant
+import com.mindorks.todonotesapp.utils.PrefConstant
 
 class LoginActivity : AppCompatActivity() {
     lateinit var editTextFullName: EditText
@@ -38,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
                 val fullName = editTextFullName.text.toString()
                 val userName = editTextUserName.text.toString()
                 if (fullName.isNotEmpty() && userName.isNotEmpty()) {
-                    val intent = Intent(this@LoginActivity,MyNotesActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                     intent.putExtra(AppConstant.FULL_NAME,fullName)
                     startActivity(intent)
                     saveFullName(fullName)
