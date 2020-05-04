@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,6 +25,12 @@ import com.mindorks.todonotesapp.db.Notes
 import com.mindorks.todonotesapp.utils.AppConstant
 import com.mindorks.todonotesapp.utils.PrefConstant
 import kotlinx.android.synthetic.main.activity_my_notes.*
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import com.mindorks.todonotesapp.workmanager.MyWorker
+import java.sql.Time
+import java.util.concurrent.TimeUnit
 
 public class MyNotesActivity : AppCompatActivity() {
     var fullName: String? = null
@@ -41,7 +49,11 @@ public class MyNotesActivity : AppCompatActivity() {
         getDataFromDatabase()
         getIntentData()
         setupRecyclerView()
+        setUpWorkManager()
+
         supportActionBar?.title = fullName
+
+
         fabAddNotes.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 //setupDialogBox()
@@ -51,6 +63,12 @@ public class MyNotesActivity : AppCompatActivity() {
 
         })
 
+    }
+    private fun setUpWorkManager() {
+        val constrain = Constraints.Builder()
+                .build()
+        val request = PeriodicWorkRequest.Builder(MyWorker::class.java,1,TimeUnit.MINUTES).setConstraints(constrain).build()
+        WorkManager.getInstance().enqueue(request)
     }
 
     private fun getDataFromDatabase() {
@@ -149,6 +167,19 @@ public class MyNotesActivity : AppCompatActivity() {
             notesList.add(notes)
             recyclerViewNotes.adapter?.notifyItemChanged(notesList.size-1)
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.blog){
+            Log.d(TAG,"clicked")
+            val  intent = Intent(this@MyNotesActivity , BlogActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

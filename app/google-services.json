@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "219495463430",
+    "firebase_url": "https://todo-daac6.firebaseio.com",
+    "project_id": "todo-daac6",
+    "storage_bucket": "todo-daac6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219495463430:android:4a9751628d8ca87205a187",
+        "android_client_info": {
+          "package_name": "com.mindorks.todonotesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219495463430-34lv5si73j327mfo1ion7ab37e8ufltn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbPXouOB5HpNQIM1prbKWuxE8utWFnkKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219495463430-34lv5si73j327mfo1ion7ab37e8ufltn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

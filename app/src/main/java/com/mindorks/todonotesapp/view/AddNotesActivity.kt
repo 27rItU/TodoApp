@@ -25,7 +25,6 @@ import com.mindorks.todonotesapp.utils.AppConstant
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 import kotlin.collections.ArrayList
 
 class AddNotesActivity : AppCompatActivity() {
