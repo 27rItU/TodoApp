@@ -1,5 +1,6 @@
 package com.mindorks.todonotesapp.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_my_notes.*
 import androidx.work.Constraints
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.mindorks.todonotesapp.utils.StoreSession
 import com.mindorks.todonotesapp.workmanager.MyWorker
 import java.sql.Time
 import java.util.concurrent.TimeUnit
@@ -37,7 +39,7 @@ public class MyNotesActivity : AppCompatActivity() {
     val ADD_NOTES_CODE = 100
     lateinit var fabAddNotes:FloatingActionButton
     val TAG = "MyNotesActivity"
-    lateinit var sharedPreferences: SharedPreferences
+
     lateinit var recyclerView: RecyclerView
     var notesList = ArrayList<Notes>()
 
@@ -144,12 +146,12 @@ public class MyNotesActivity : AppCompatActivity() {
             fullName = intent.getStringExtra(AppConstant.FULL_NAME)?:""
         }
         if (fullName==null){
-            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME, "")?:""
+            fullName = StoreSession.readString(PrefConstant.FULL_NAME)!!
         }
     }
 
     private fun setupSharedPreferences() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        StoreSession.init(this)
     }
 
     private fun bindView() {
@@ -158,7 +160,7 @@ public class MyNotesActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode ==ADD_NOTES_CODE){
+        if(requestCode ==ADD_NOTES_CODE && resultCode==Activity.RESULT_OK){
             val title = data?.getStringExtra(AppConstant.TITLE)
             val description = data?.getStringExtra(AppConstant.DESCRIPTION)
             val imagePath = data?.getStringExtra(AppConstant.IMAGE_PATH)
@@ -174,9 +176,16 @@ public class MyNotesActivity : AppCompatActivity() {
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.blog){
+        if (item.itemId == R.id.Blog){
             Log.d(TAG,"clicked")
             val  intent = Intent(this@MyNotesActivity , BlogActivity::class.java)
+            startActivity(intent)
+        }
+        if (item.itemId == R.id.logout){
+            Log.d(TAG,"clicked")
+            StoreSession.init(this)
+            StoreSession.write(PrefConstant.IS_LOGGED_IN,false)
+            val  intent = Intent(this@MyNotesActivity , LoginActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
